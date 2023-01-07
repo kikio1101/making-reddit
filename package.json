@@ -1,0 +1,11 @@
+{
+  "name": "making-reddit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "concurrently --names CLIENT,SERVER -c bgBlue.bold,bgCyan.bold \"cd client && sleep 5 && npm run start\" \"cd server && npm run start:dev\"",
+    "lint": "eslint .",
+    "check:type": "tsc --noEmit"
+  }
+}
