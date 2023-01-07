@@ -4,8 +4,12 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start": "concurrently --names CLIENT,SERVER -c bgBlue.bold,bgCyan.bold \"cd client && sleep 5 && npm run start\" \"cd server && npm run start:dev\"",
+    "docker": "cd server && docker-compose up",
+    "start": "concurrently --names CLIENT,SERVER -c bgBlue.bold,bgCyan.bold \"cd client && sleep 5 && yarn dev\" \"cd server && yarn dev\"",
     "lint": "eslint .",
     "check:type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
   }
 }
