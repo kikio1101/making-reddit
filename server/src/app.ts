@@ -11,12 +11,31 @@ import dotenv from "dotenv";
 dotenv.config();
 // 환경변수 체크해서 정상일 때만 서버 실행
 // checkEnv();
+const cspOptions = {
+  directives: {
+    // 헬멧 기본 옵션 가져오기
+    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+
+    /* 
+    커스텀 옵션 - script-src]
+    none : 어떳 것도 허용하지 않음
+  self : 현재 출처에서는 허용하지만 하위 도메인에서는 허용되지 않음
+  unsafe-inline : 인라인 자바스크립트, 인라인 스타일을 허용
+    */
+
+    "script-src": ["'self'", "'unsafe-inline'"],
+  },
+};
 
 const app = express();
-app.set("port", process.env.PORT || 8000);
 
+app.set("port", process.env.PORT || 8000);
 app.use(morgan("dev"));
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: cspOptions,
+  })
+);
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
